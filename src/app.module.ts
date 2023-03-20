@@ -5,15 +5,19 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EmailController } from './email.controller';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     MailerModule.forRoot({
       transport: {
-        host: 'smtp.sendgrid.net',
+        host: process.env.SMTP_HOST,
         auth: {
-          user: 'apikey',
-          pass: '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',
+          user: process.env.AUTH_USER,
+          pass: process.env.AUTH_PASS,
         },
       },
       template: {
