@@ -12,12 +12,15 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+
     MailerModule.forRoot({
       transport: {
-        host: process.env.SMTP_HOST,
+        host: process.env.SMTP_HOST_ALI,
+        port: parseInt(process.env.SMTP_PORT_ALI),
+        secure: false, //required for TSL
         auth: {
-          user: process.env.AUTH_USER,
-          pass: process.env.AUTH_PASS,
+          user: process.env.SMTP_USER_ALI,
+          pass: process.env.SMTP_PASS_ALI,
         },
       },
       template: {
